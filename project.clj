@@ -4,9 +4,16 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[org.clojure/clojure "1.9.0-RC1"]
                  [org.clojure/clojurescript "1.9.946"]
-                 [reagent "0.7.0"]]
+                 [reagent "0.7.0"]
+                 [reagent-utils "0.2.1"]
+                 [re-com "2.1.0"]
+                 [cljs-ajax "0.7.3"]
+                 [jarohen/chord "0.8.1"]
+                 [org.clojure/core.async "0.3.443"]
+                 [devcards "0.2.4"]
+                 [org.clojure/test.check "0.9.0"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]
             [lein-figwheel "0.5.14"]]
@@ -38,6 +45,17 @@
                         :figwheel
                         {:on-jsload "labelmaker-frontend.core/mount-root"
                          :open-urls ["http://localhost:3449/index.html"]}}
+                       :devcards
+                       {:source-paths ["src" "env/dev/cljs" "test"]
+                        :figwheel
+                        {:devcards true}
+                        :compiler
+                        { :main       "labelmaker-frontend.dev"
+                         :asset-path "js/devcards_out"
+                         :output-to  "public/js/devcards.js"
+                         :output-dir "public/js/devcards_out"
+                         :optimizations :none
+                         :source-map-timestamp true }}
                        :release
                        {:source-paths ["src" "env/prod/cljs"]
                         :compiler
